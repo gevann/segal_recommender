@@ -9,29 +9,45 @@
 
 {% block content %}
 <div class='container-fluid'>
-    <h1>SEGALab Suggestinator</h1>
-    <main class='col-xs-12 col-sm-8 col-md-6 col-lg-6'>
+    <h1 class="text-center">The <span class='text-info'>SEGALab</span> Suggestinator</h1>
+    <hr>
+    <main class='col-xs-12 col-md-6 col-lg-6'>
         <form action="/results/" method="GET" class="has-success">
-            <div class="form-group">
-                <label for="tc">Time count</label>
-                <input type="number" min="1" max="365" class="form-control" name="tc" id="tc" placeholder="5">
-            </div>
-            <div class="form-group">
-                <label for="tm">Time measure</label>
-                <input type="text" class="form-control" name="tm" id="tm" placeholder="Months">
-            </div>
+            
             <div class="form-group">
                 <label for="user">User name</label>
-                <input type="text" class="form-control" name="user" id="user" placeholder="John Doe">
+                <input type="text" class="form-control" name="user" id="user" placeholder="yui">
             </div>
+
             <div class="form-group">
-                <label for="rID">Repository ID</label>
-                <input type="text" class="form-control" name="rID" id="rID" placeholder="12345...">
+                <div class="row">
+                    <label for="rID" class="col-xs-12 text-left">Repository ID / Issue or Commit ID</label>
+                </div>
+
+               <div class="row"> 
+                    <div class="col-xs-5">
+                        <input type="text" class="form-control" name="rID" id="rID" placeholder="55">
+                    </div>
+
+                    <div class="col-xs-7">
+                        <input type="text" class="form-control" name="artID" id="artID" placeholder="134">
+                    </div>
+                </div>
+
             </div>
+
             <div class="form-group">
-                <label for="artID">Article ID</label>
-                <input type="text" class="form-control" name="artID" id="artID" placeholder="12345...">
+                <label for="tc">Time window</label>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <input type="number" min="1" max="365" class="form-control" name="tc" id="tc" placeholder="4">
+                    </div>
+                    <div class="col-xs-8">
+                        <input type="text" class="form-control" name="tm" id="tm" placeholder="years">
+                    </div>
+                </div>
             </div>
+
             <div class="form-group">
                 <label for="rows">Maximum suggestions</label>
                 <input type="number" class="form-control" min="1" max="20" name="rows" id="rows" placeholder="5">
@@ -39,8 +55,20 @@
             <button type="submit" name="submit" class="btn btn-default">Submit</button>
         </form>
     </main>
-    <div class='hidden-xs col-sm-4 col-md-6 col-lg-6'>
-        <p>Sidebar content</p>
+    
+    <div class='col-xs-12 col-md-6 col-lg-6'>
+        <h4>Hi, welcome to the <span class='text-info'>SEGALab</span> Suggestinator!</h4>
+        <p class="lead text-danger">The Idea:</p>
+        <p>
+            You are a dev with a problem. Imagine you've just created an issue linking to <b>yui/55/134</b>. 
+        </p>
+        <p>
+            Perhaps someone else on GitHub has also had your problem. Possibly they've solved it.
+            How do you find them?
+        </p>
+        <p>
+            Here you can put in that information and we will provide you a series of suggestions of links to inspect.
+        </p>
     </div>
 </div>
 {% endblock %}
