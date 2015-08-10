@@ -2,3 +2,9 @@
 __pycache__/
 *.swp
 *.py.swp
+[._]*.s[a-w][a-z]
+[._].s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
