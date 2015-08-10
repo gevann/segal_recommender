@@ -1,14 +1,25 @@
-from flask import Flask, render_template, request
+from flask import Flask
+from flask import render_template
+from flask import request
+from flask_boostrap import Bootstrap
 
 from invoke import run
 
-app = Flask(__name__)
+
+def create_app():
+    app = Flask(__name__)
+    Bootstrap(app)
+    return app
+
+app = create_app()
+
 
 @app.route('/')
 def home():
     return render_template('home.html')
 
-@app.route('/results/', methods=['GET','POST'])
+
+@app.route('/results/', methods=['GET', 'POST'])
 def results():
     # this is where you do stuff
     # saved it changes
