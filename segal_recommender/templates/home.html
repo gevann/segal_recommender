@@ -1,11 +1,46 @@
-<html>
-    <head>
-        <title>Main Page for Criteria</title>
-    </head>
-    <body>
-        <form action="/results/" method="GET">
-            <input type="text" name="criteria">
-            <input type="submit" name="Submit">
+{% extends "bootstrap/base.html" %}
+{% block title %} SEGALab Suggests{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+    <!-- ... -->
+</div>
+{% endblock %}
+
+{% block content %}
+<div class='container-fluid'>
+    <h1>SEGALab Suggestinator</h1>
+    <main class='col-xs-12 col-sm-8 col-md-6 col-lg-6'>
+        <form action="/results/" method="GET" class="has-success">
+            <div class="form-group">
+                <label for="tc">Time count</label>
+                <input type="number" min="1" max="365" class="form-control" name="tc" id="tc" placeholder="5">
+            </div>
+            <div class="form-group">
+                <label for="tm">Time measure</label>
+                <input type="text" class="form-control" name="tm" id="tm" placeholder="Months">
+            </div>
+            <div class="form-group">
+                <label for="user">User name</label>
+                <input type="text" class="form-control" name="user" id="user" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label for="rID">Repository ID</label>
+                <input type="text" class="form-control" name="rID" id="rID" placeholder="12345...">
+            </div>
+            <div class="form-group">
+                <label for="artID">Article ID</label>
+                <input type="text" class="form-control" name="artID" id="artID" placeholder="12345...">
+            </div>
+            <div class="form-group">
+                <label for="rows">Maximum suggestions</label>
+                <input type="number" class="form-control" min="1" max="20" name="rows" id="rows" placeholder="5">
+            </div>
+            <button type="submit" name="submit" class="btn btn-default">Submit</button>
         </form>
-    </body>
-</html>
+    </main>
+    <div class='hidden-xs col-sm-4 col-md-6 col-lg-6'>
+        <p>Sidebar content</p>
+    </div>
+</div>
+{% endblock %}
