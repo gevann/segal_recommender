@@ -176,7 +176,7 @@ class Problem2(Problem1):
         assert isinstance(origin_date, datetime.date), 'origin must be a '\
             'date object'
         assert time_measure in self.TIME_WINDOW_TYPE_MAP.keys(), 'unit of time'\
-            ' must be "day(s)", "week(s)", "month(s)", or "year(s)"'
+            ' must be "day(s)", "week(s)", "month(s)", or "year(s)".'
         assert type(submitter) == str, 'submitter name must be a string'
         assert type(ID) == int, 'ID must be an int'
         self.origin_date = origin_date
@@ -305,10 +305,11 @@ class Problem2_5(Problem2):
 
         assert type(time_count) == int, 'amount of time must be int'
         assert type(time_measure) == str, 'unit of time must be a string'
+        time_measure = time_measure.strip()
         assert isinstance(origin_date, datetime.date), 'origin must be a '\
             'date object'
         assert time_measure in self.TIME_WINDOW_TYPE_MAP.keys(), 'unit of time'\
-            ' must be "day(s)", "week(s)", "month(s)", or "year(s)"'
+            ' must be "day(s)", "week(s)", "month(s)", or "year(s)". Got {}'.format(time_measure)
         assert type(submitter) == str, 'submitter name must be a string'
         assert type(r_ID) == int, 'ID must be an int'
 
