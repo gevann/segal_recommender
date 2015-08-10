@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-from flask_boostrap import Bootstrap
+from flask_bootstrap import Bootstrap
 
 from invoke import run
 
