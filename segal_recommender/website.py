@@ -29,8 +29,6 @@ def home():
 
 @app.route('/results/', methods=['GET', 'POST'])
 def results():
-    # this is where you do stuff
-    # saved it changes
     user = get_arg('user')
     rID = get_arg('rID')
     artID = get_arg('artID')
