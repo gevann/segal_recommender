@@ -45,19 +45,33 @@
 {% endblock %}
 
 {% block sidebar %}
-<h4>Hi, welcome to the <span class='text-info'>SEGALab</span> Suggestinator!</h4>
+<h4>Hi,</h4>
+<h4>Welcome to the <span class='text-info'>SEGALab</span> Suggestinator!</h4>
 <p class="lead text-danger">The Idea:</p>
 <p>
-    You are a dev with a problem. Imagine you've just created an issue linking to <b>yui/55/134</b>. 
+    You are a dev with a problem. Imagine you've just created an issue linking to <a href="https://github.com/yui/yui3/issues/134">yui/yui3 issue #134</a>. 
 </p>
 <p>
-    Perhaps someone else on GitHub has also had your problem. Possibly they've solved it.
+    Perhaps someone else on <a href='https://www.github.com'>GitHub</a> has also had your problem. Possibly they've solved it.
     How do you find them?
 </p>
 <p>
-    Here you can put in that information and we will provide you a series of suggestions of links to inspect.
+    This is where the <b>Suggestinator</b> comes in.  It searches through 
+    <a href="http://thesegalgroup.org/wp-content/uploads/2015/03/MSR15_Ecosystems_CameraReady.pdf" target="_blank">cross-references</a> made in GitHub comments, 
+    seeking out others in the community who've made the same link as you.
+    You can narrow the time window to restrict results to only the more recent, or widen it for a broader scope.
+    This tool is a proof of concept -- currently development focused on making the tool rather than maintaining the database it requires. 
+    As a result, it only works for GitHub data up to 2014. Plans to update the database to a live version are a-hatchin'. 
 </p>
 <p>
-    Try replacing 55 with 74, if you're interested, or submit the form as it is!
+    The final idea is to integrate this functionality directly with your GitHub account. That way you'll never have to enter any information
+    by hand, simply use the GitHub Flavored Markdown as normal, and if you create a link to a project you can ask for suggestions from
+    the Suggestinator!
 </p>
+<p>Tune back soon!</p>
+<p>&mdash; Your friends at <span class='text-info'>SEGALabs</span></p>
+<br>
+<aside class="text-muted">
+    Psst, try replacing 55 with 74.
+</aside>
 {% endblock %}

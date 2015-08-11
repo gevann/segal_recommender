@@ -180,6 +180,7 @@ class Problem2(Problem1):
         assert type(submitter) == str, 'submitter name must be a string'
         assert type(ID) == int, 'ID must be an int'
         self.origin_date = origin_date
+        self.nothing_found = False
         self.submitter = submitter
         self.time_count = time_count
         self.time_measure = time_measure.strip('s')
@@ -265,7 +266,9 @@ class Problem2(Problem1):
             self.find_links_strict(cursor)
         except AttributeError:
             self.find_links(cursor)
-        assert self.link_data != [], 'No tuples match your query!'
+        # assert self.link_data != [], 'No tuples match your query!'
+        if self.link_data == []:
+            self.nothing_found = True
         output = []
         for tpl in self.link_data:
             info = {}
@@ -331,6 +334,7 @@ class Problem2_5(Problem2):
         self.strict_qry = self.find_link_qry_strict()
         self.qry = self.find_link_qry()
         self.row_count = 3
+        self.nothing_found = False
 
     def find_link_qry_strict(self):
         '''Make MySQL query to repos who also linked to ID within a timeframe'''

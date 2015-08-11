@@ -1,17 +1,22 @@
 {% extends "base.html" %}
 {% block main %}
     <!-- -->
-    <p class="lead">Some urls you might be interested in...</p>
-    <ul class="nav nav-pills nav-stacked">
-        {% for url in urls %}
-        <li role="presentation"><a href={{ url['url'] }}>Suggestion {{ urls.index(url) + 1 }} <span class="text-muted">({{ url['repo'] }}/{{ url['user']}})</span></a></li>
-        {% endfor %}
-    </ul>
+    {% if not nothing_found %}
+        <p class="lead">Some urls you might be interested in...</p>
+        <ul class="nav nav-pills nav-stacked">
+            {% for url in urls %}
+            <li role="presentation"><a href={{ url['url'] }} target="_blank">Suggestion {{ urls.index(url) + 1 }} <span class="text-muted">({{ url['repo'] }}/{{ url['user']}})</span></a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="lead">Oops!</p>
+        <p>It seems that there were no other links in that time frame!</p>
+    {% endif %}
 {% endblock %}
 
 {% block sidebar %}
     <!-- -->
-    {% if used_non_strict %}
+    {% if used_non_strict and not nothing_found %}
         <p>
             <span class='text-danger'>Oops!</span> Looks like we couldn't find any links to that exact pair!
         </p>

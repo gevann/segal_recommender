@@ -44,7 +44,8 @@ def results():
                      'repo': solved_problem.link_data[i][0],
                      'user': solved_problem.link_data[i][1]})
     used_non_strict = solved_problem.used_non_strict
-    return render_template('suggestions.html', urls=urls, used_non_strict=used_non_strict)
+    return render_template('suggestions.html', urls=urls, used_non_strict=used_non_strict,
+                           nothing_found=solved_problem.nothing_found)
 
 
 def get_arg(arg_name):
@@ -69,9 +70,8 @@ def use_probe_2(docopt_args, cursor):
     artifact_ID = int(docopt_args['artID'])
     the_links = p2.Problem2_5(origin_date, time_count, time_measure, submitter,
                               r_ID, artifact_ID)
-    if docopt_args['rows']:
-        row_count = int(docopt_args['rows'])
-        the_links.set_row_count(row_count)
+    row_count = int(docopt_args['rows'])
+    the_links.set_row_count(row_count)
     the_links.set_urls(cursor)
     return the_links
 
