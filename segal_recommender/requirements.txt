@@ -5,6 +5,7 @@ decorator==4.0.2
 defusedxml==0.4.1
 docopt==0.6.2
 dominate==2.1.12
+ecdsa==0.13
 Flask==0.10.1
 Flask-Babel==0.9
 Flask-Bootstrap==3.3.5.6
@@ -22,7 +23,9 @@ Jinja2==2.8
 MarkupSafe==0.23
 mysql-connector-python==2.0.4
 numpy==1.9.2
+paramiko==1.15.2
 pbr==1.4.0
+pycrypto==2.6.1
 python3-openid==3.0.6
 pytz==2015.4
 scipy==0.16.0
