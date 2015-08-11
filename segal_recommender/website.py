@@ -27,7 +27,7 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/results/', methods=['GET', 'POST'])
+@app.route('/suggestions/', methods=['GET', 'POST'])
 def results():
     user = get_arg('user')
     rID = get_arg('rID')
@@ -37,12 +37,14 @@ def results():
     rows = get_arg('rows')
     data = {'user': user, 'rID': rID, 'artID': artID, 'time_count': time_count,
             'time_measure': time_measure, 'rows': rows}
-    # return '{}'.format(", ".join(data))
-    # result = run('python3 probe_data.py --p2 {time_count} {time_measure}"\
-    #             " {user} {rID} {artID} {rows}'.format(**data))
-    # return result.stdout
-    links = main(data)
-    return ", ".join(links)
+    solved_problem = main(data)
+    urls = []
+    for i, entry in enumerate(solved_problem.urls):
+        urls.append({'url': entry,
+                     'repo': solved_problem.link_data[i][0],
+                     'user': solved_problem.link_data[i][1]})
+    used_non_strict = solved_problem.used_non_strict
+    return render_template('suggestions.html', urls=urls, used_non_strict=used_non_strict)
 
 
 def get_arg(arg_name):
@@ -87,7 +89,7 @@ def main(docopt_args):
     cursor = db_connection.cursor()
 
     answer = use_probe_2(docopt_args, cursor)
-    return(answer.urls)
+    return(answer)
 
 
 if __name__ == '__main__':

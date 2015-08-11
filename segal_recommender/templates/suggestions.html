@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block main %}
+    <!-- -->
+    <p class="lead">Some urls you might be interested in...</p>
+    <ul class="nav nav-pills nav-stacked">
+        {% for url in urls %}
+        <li role="presentation"><a href={{ url['url'] }}>Suggestion {{ urls.index(url) + 1 }} <span class="text-muted">({{ url['repo'] }}/{{ url['user']}})</span></a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block sidebar %}
+    <!-- -->
+    {% if used_non_strict %}
+        <p>
+            <span class='text-danger'>Oops!</span> Looks like we couldn't find any links to that exact pair!
+        </p>
+        <p>
+            These urls made links to only the repository. Perhaps they will
+            be of assistance.
+        </p>
+    {% endif %}
+{% endblock %}

@@ -1,14 +1,33 @@
 {% extends "bootstrap/base.html" %}
-{% block title %} SEGALab Suggests{% endblock %}
+{% block title %}SEGALab Suggests{% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-fixed-top">
-    <!-- ... -->
-</div>
+<!-- Top Navigation Bar  -->
+<nav class="navbar">
+    <div class="fluid-container">
+        <h1 class="text-center">The <span class='text-info'>SEGALab</span> Suggestinator</h1>
+        <ul class="nav nav-tabs">
+            <li>
+                <a class="navbar-brand" href="http://thesegalgroup.org/">SEGALabs</a>
+            </li>
+            <li>
+                <a class="navbar-brand" href="/">Home</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 {% endblock %}
 
 {% block content %}
-<h1 class="text-center">The <span class='text-info'>SEGALab</span> Suggestinator</h1>
-<hr>
-{% block main %}{% endblock %}
+<!-- Page Content Below Nav-Bar -->
+<div class='container-fluid'>
+    <main class='col-xs-12 col-md-6 col-lg-6'>
+        <!-- Main Content -->
+        {% block main %}{% endblock %}
+    </main>
+    <div class='col-xs-12 col-md-6 col-lg-6'>
+        <!-- Side Bar Content -->
+        {% block sidebar %}{% endblock %}
+    </div>
+</div>
 {% endblock %}

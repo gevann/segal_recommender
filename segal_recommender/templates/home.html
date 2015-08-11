@@ -1,64 +1,63 @@
 {% extends "base.html" %}
 {% block main %}
-<div class='container-fluid'>
-    <main class='col-xs-12 col-md-6 col-lg-6'>
-        <form action="/results/" method="GET" class="has-success">
-            
-            <div class="form-group">
-                <label for="user">User name</label>
-                <input type="text" class="form-control" name="user" id="user" value="yui">
-            </div>
-
-            <div class="form-group">
-                <div class="row">
-                    <label for="rID" class="col-xs-12 text-left">Repository ID / Issue or Commit ID</label>
-                </div>
-
-               <div class="row"> 
-                    <div class="col-xs-5">
-                        <input type="text" class="form-control" name="rID" id="rID" value="55">
-                    </div>
-
-                    <div class="col-xs-7">
-                        <input type="text" class="form-control" name="artID" id="artID" value="134">
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="form-group">
-                <label for="tc">Time window</label>
-                <div class="row">
-                    <div class="col-xs-4">
-                        <input type="number" min="1" max="365" class="form-control" name="tc" id="tc" value="4">
-                    </div>
-                    <div class="col-xs-8">
-                        <input type="text" class="form-control" name="tm" id="tm" value="years">
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="rows">Maximum suggestions</label>
-                <input type="number" class="form-control" min="1" max="20" name="rows" id="rows" value="5">
-            </div>
-            <button type="submit" name="submit" class="btn btn-default">Submit</button>
-        </form>
-    </main>
+<form action="/suggestions/" method="GET" class="has-success">
     
-    <div class='col-xs-12 col-md-6 col-lg-6'>
-        <h4>Hi, welcome to the <span class='text-info'>SEGALab</span> Suggestinator!</h4>
-        <p class="lead text-danger">The Idea:</p>
-        <p>
-            You are a dev with a problem. Imagine you've just created an issue linking to <b>yui/55/134</b>. 
-        </p>
-        <p>
-            Perhaps someone else on GitHub has also had your problem. Possibly they've solved it.
-            How do you find them?
-        </p>
-        <p>
-            Here you can put in that information and we will provide you a series of suggestions of links to inspect.
-        </p>
+    <div class="form-group">
+        <label for="user">User name</label>
+        <input type="text" class="form-control" name="user" id="user" value="yui">
     </div>
-</div>
+
+    <div class="form-group">
+        <div class="row">
+            <label for="rID" class="col-xs-12 text-left">Repository ID / Issue or Commit ID</label>
+        </div>
+
+       <div class="row"> 
+            <div class="col-xs-5">
+                <input type="text" class="form-control" name="rID" id="rID" value="55">
+            </div>
+
+            <div class="col-xs-7">
+                <input type="text" class="form-control" name="artID" id="artID" value="134">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label for="tc">Time window</label>
+        <div class="row">
+            <div class="col-xs-4">
+                <input type="number" min="1" max="365" class="form-control" name="tc" id="tc" value="4">
+            </div>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" name="tm" id="tm" value="years">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="rows">Maximum suggestions</label>
+        <input type="number" class="form-control" min="1" max="20" name="rows" id="rows" value="5">
+    </div>
+    <button type="submit" name="submit" class="btn btn-default">Submit</button>
+</form>
+{% endblock %}
+
+{% block sidebar %}
+<h4>Hi, welcome to the <span class='text-info'>SEGALab</span> Suggestinator!</h4>
+<p class="lead text-danger">The Idea:</p>
+<p>
+    You are a dev with a problem. Imagine you've just created an issue linking to <b>yui/55/134</b>. 
+</p>
+<p>
+    Perhaps someone else on GitHub has also had your problem. Possibly they've solved it.
+    How do you find them?
+</p>
+<p>
+    Here you can put in that information and we will provide you a series of suggestions of links to inspect.
+</p>
+<p>
+    Try replacing 55 with 74, if you're interested, or submit the form as it is!
+</p>
 {% endblock %}
