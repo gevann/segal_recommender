@@ -1,16 +1,6 @@
-{% extends "bootstrap/base.html" %}
-{% block title %} SEGALab Suggests{% endblock %}
-
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-    <!-- ... -->
-</div>
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %}
+{% block main %}
 <div class='container-fluid'>
-    <h1 class="text-center">The <span class='text-info'>SEGALab</span> Suggestinator</h1>
-    <hr>
     <main class='col-xs-12 col-md-6 col-lg-6'>
         <form action="/results/" method="GET" class="has-success">
             
