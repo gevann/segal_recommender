@@ -3,42 +3,48 @@
 <form action="/suggestions/" method="GET" class="has-success">
     
     <div class="form-group">
-        <label for="user">User name</label>
-        <input type="text" class="form-control" name="user" id="user" value="yui">
+        <label for="user">Who did you link?</label>
+        <input data-toggle="tooltip" title="User name" type="text" class="form-control" name="user" id="user" value="yui">
     </div>
 
     <div class="form-group">
         <div class="row">
-            <label for="rID" class="col-xs-12 text-left">Repository ID / Issue or Commit ID</label>
+            <label for="rID" class="col-xs-12 text-left">What is their repository ID / issue number or commit hash?</label>
         </div>
 
        <div class="row"> 
-            <div class="col-xs-5">
-                <input type="text" class="form-control" name="rID" id="rID" value="55">
+            <div class="col-xs-2">
+                <input data-toggle="tooltip" title="repository ID" type="text" class="form-control" name="rID" id="rID" value="55">
             </div>
-
-            <div class="col-xs-7">
-                <input type="text" class="form-control" name="artID" id="artID" value="134">
+            <p class="col-xs-1" style="font-size: 24px;">/</p>
+            <div class="col-xs-9">
+                <input data-toggle="tooltip" title="issue number, or commit hash" type="text" class="form-control" name="artID" id="artID" value="134">
             </div>
         </div>
 
     </div>
 
     <div class="form-group">
-        <label for="tc">Time window</label>
+        <label for="tc">How far back should I search?</label>
         <div class="row">
-            <div class="col-xs-4">
-                <input type="number" min="1" max="365" class="form-control" name="tc" id="tc" value="4">
+            <div class="col-xs-2">
+                <input data-toggle="tooltip" title="Any positive integer" type="number" min="1" max="365" class="form-control" name="tc" id="tc" value="4">
             </div>
-            <div class="col-xs-8">
-                <input type="text" class="form-control" name="tm" id="tm" value="years">
+            <div class="col-xs-2">
+                <input data-toggle="tooltip" title="years, months, weeks, or days" type="text" class="form-control" name="tm" id="tm" value="years">
             </div>
+            <div class="col-xs-10"></div>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="rows">Maximum suggestions</label>
-        <input type="number" class="form-control" min="1" max="20" name="rows" id="rows" value="5">
+        <label for="rows">How many suggestions would you like, maximum?</label>
+        <div class="row">
+            <div class="col-xs-2">
+                <input data-toggle="tooltip" title="maximum number of results wanted" type="number" class="form-control" min="1" max="20" name="rows" id="rows" value="5">
+            </div>
+            <div class="col-xs-10"></div>
+        </div>
     </div>
     <button type="submit" name="submit" class="btn btn-default">Submit</button>
 </form>
