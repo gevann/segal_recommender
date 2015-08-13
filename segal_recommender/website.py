@@ -13,6 +13,8 @@ sys.path.insert(0, '/Users/graeme/Documents/coop/actual_coops/segal/GHTorrent'
 import use_ghtorrent as gh
 import probe2 as p2
 
+TOOL_NAME = "Suggestinator"
+
 
 def create_app():
     app = Flask(__name__)
@@ -24,7 +26,7 @@ app = create_app()
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', tool_name=TOOL_NAME)
 
 
 @app.route('/suggestions/', methods=['GET', 'POST'])
@@ -46,7 +48,7 @@ def results():
                      'user': solved_problem.link_data[i][1]})
     used_non_strict = solved_problem.used_non_strict
     return render_template('suggestions.html', urls=urls, used_non_strict=used_non_strict,
-                           nothing_found=solved_problem.nothing_found)
+                           nothing_found=solved_problem.nothing_found, tool_name=TOOL_NAME)
 
 
 def get_arg(arg_name):
