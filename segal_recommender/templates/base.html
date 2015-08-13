@@ -24,13 +24,19 @@
 {% block content %}
 <!-- Page Content Below Nav-Bar -->
 <div class='container-fluid'>
-    <main class='col-xs-12 col-md-6 col-lg-6'>
-        <!-- Main Content -->
-        {% block main %}{% endblock %}
+    <main class='col-xs-12 col-md-6 row'>
+        <div class="col-xs-12 col-sm-8 col-md-12 col-lg-10">
+            <!-- Main Content -->
+            {% block main %}{% endblock %}
+        </div>
     </main>
-    <div class='col-xs-12 col-md-6 col-lg-6'>
+
+    <div class='col-xs-12 col-md-6 row'>
         <!-- Side Bar Content -->
-        {% block sidebar %}{% endblock %}
+        <div class='col-xs-12 col-sm-8 col-md-12 col-lg-10'>
+            {% block sidebar %}{% endblock %}
+        </div>
     </div>
+
 </div>
 {% endblock %}
