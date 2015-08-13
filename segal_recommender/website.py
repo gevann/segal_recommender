@@ -51,6 +51,11 @@ def results():
                            nothing_found=solved_problem.nothing_found, tool_name=TOOL_NAME)
 
 
+@app.route('/integration/')
+def integration():
+    return render_template('integration.html', tool_name=TOOL_NAME)
+
+
 def get_arg(arg_name):
     return request.args.get(arg_name)
 
