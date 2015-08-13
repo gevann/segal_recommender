@@ -29,14 +29,15 @@ def home():
 
 @app.route('/suggestions/', methods=['GET', 'POST'])
 def results():
-    user = get_arg('user')
+    user_repo = get_arg('user_repo')
+    user, repo = user_repo.split("/")
     rID = get_arg('rID')
     artID = get_arg('artID')
     time_count = get_arg('tc')
     time_measure = get_arg('tm')
     rows = get_arg('rows')
     data = {'user': user, 'rID': rID, 'artID': artID, 'time_count': time_count,
-            'time_measure': time_measure, 'rows': rows}
+            'time_measure': time_measure, 'rows': rows, 'repo': repo}
     solved_problem = main(data)
     urls = []
     for i, entry in enumerate(solved_problem.urls):
@@ -50,6 +51,13 @@ def results():
 
 def get_arg(arg_name):
     return request.args.get(arg_name)
+
+
+def get_rID(repo_name, table_name='filtered_links_dated'):
+    '''Query for the unique repository ID for the given repository name.'''
+
+    qry = "SELECT repo_id FROM {table} WHERE repo = '{repo_name}' LIMIT 1;"
+    return qry.format(table=table_name, repo_name=repo_name)
 
 
 def get_probe_2(table_name='filtered_links_dated'):
@@ -66,7 +74,10 @@ def use_probe_2(docopt_args, cursor):
     time_count = int(docopt_args['time_count'])
     time_measure = docopt_args['time_measure']
     submitter = docopt_args['user']
-    r_ID = int(docopt_args['rID'])
+    r_ID_qry = get_rID(docopt_args['repo'])
+    cursor.execute(r_ID_qry)
+    r_ID = int(cursor.fetchall()[0][0])
+    # r_ID = int(docopt_args['rID'])
     artifact_ID = int(docopt_args['artID'])
     the_links = p2.Problem2_5(origin_date, time_count, time_measure, submitter,
                               r_ID, artifact_ID)
