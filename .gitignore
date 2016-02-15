@@ -8,3 +8,5 @@ __pycache__/
 Session.vim
 .netrwhist
 *~
+.*
+!/.gitignore
