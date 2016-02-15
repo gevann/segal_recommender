@@ -3,9 +3,8 @@ from flask import render_template
 from flask import request
 from flask_bootstrap import Bootstrap
 
-# from invoke import run
-
 import sys
+import datetime
 sys.path.insert(0, '/Users/graeme/Documents/coop/actual_coops/segal/GHTorrent'
                 '/mysql/connections')
 sys.path.insert(0, '/Users/graeme/Documents/coop/actual_coops/segal/GHTorrent'
@@ -63,28 +62,28 @@ def get_arg(arg_name):
 def get_rID(repo_name, table_name='filtered_links_dated'):
     '''Query for the unique repository ID for the given repository name.'''
 
-    qry = "SELECT repo_id FROM {table} WHERE repo = '{repo_name}' LIMIT 1;"
-    return qry.format(table=table_name, repo_name=repo_name)
+    inputs = (table_name, repo_name)
+    qry = "SELECT repo_id FROM %s WHERE repo = %s LIMIT 1;"
+    return qry, inputs
 
 
 def get_probe_2(table_name='filtered_links_dated'):
     """Create SQL query to select repo_id, linked_repo_id, and created_at from
     table_name."""
 
-    raw_probe = "SELECT repo_id, linked_repo_id, created_at FROM {0}"
-    return raw_probe.format(table_name)
+    inputs = (table_name,)
+    qry = "SELECT repo_id, linked_repo_id, created_at FROM %s"
+    return qry, inputs
 
 
 def use_probe_2(docopt_args, cursor):
-    import datetime
     origin_date = datetime.datetime.now()
     time_count = int(docopt_args['time_count'])
     time_measure = docopt_args['time_measure']
     submitter = docopt_args['user']
-    r_ID_qry = get_rID(docopt_args['repo'])
-    cursor.execute(r_ID_qry)
+    r_ID_qry, params = get_rID(docopt_args['repo'])
+    cursor.execute(r_ID_qry, params)
     r_ID = int(cursor.fetchall()[0][0])
-    # r_ID = int(docopt_args['rID'])
     artifact_ID = int(docopt_args['artID'])
     the_links = p2.Problem2_5(origin_date, time_count, time_measure, submitter,
                               r_ID, artifact_ID)

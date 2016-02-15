@@ -62,10 +62,12 @@ def get_probe_2(source, target, the_date, table='filtered_links_dated',
         tuples.
     '''
 
-    raw_query = "SELECT owner_id, linked_owner_id, repo_id, linked_repo_id, "\
-        "date FROM {table} WHERE (repo_id != {source}) "\
-        "AND (linked_repo_id = {target})"
-    return raw_query.format(**locals())
+    query = "SELECT owner_id, linked_owner_id, repo_id, linked_repo_id, "\
+        "date FROM %s WHERE (repo_id != %s) "\
+        "AND (linked_repo_id = %s)"
+    inputs = (table, source, target)
+
+    return query, inputs
 
 
 def get_hindsight_probe_2():
@@ -103,11 +105,11 @@ class Problem1:
         OUTPUT
             A list of (owner, repo, issue/commit) tuples'''
 
-        raw_qry = "SELECT DISTINCT owner, repo, number, count_ii, count_ic, "\
-            "count_ci, count_cc{2} FROM filtered_links_dated "\
-            "WHERE linked_repo_id = {0} "\
-            "AND owner != '{1}'"\
-            "{3}"
+        qry = "SELECT DISTINCT owner, repo, number, count_ii, count_ic, "\
+            "count_ci, count_cc%s FROM filtered_links_dated "\
+            "WHERE linked_repo_id = %s "\
+            "AND owner != %s"\
+            "%s"
         if date_mode:
             use_date = ', date'
             and_date = " AND date IS NOT NULL AND date > 0 "\
@@ -115,8 +117,9 @@ class Problem1:
         else:
             use_date = ''
             and_date = ''
-        qry = raw_qry.format(ID, submitter, use_date, and_date)
-        return qry
+
+        inputs = (submitter, use_date, ID, and_date)
+        return qry, inputs
 
     def find_links(self, ID, submitter, cursor, row_count=3, date_mode=False):
         '''Get 3 owner, repo, number, link-type tuples linking to the same ID
@@ -130,10 +133,10 @@ class Problem1:
                                     Default = 3
         '''
         if date_mode:
-            qry = self.find_link_qry(ID, submitter, date_mode=date_mode)
+            qry, inputs = self.find_link_qry(ID, submitter, date_mode=date_mode)
         else:
-            qry = self.find_link_qry(ID, submitter)
-        cursor.execute(qry)
+            qry, inputs = self.find_link_qry(ID, submitter)
+        cursor.execute(qry, inputs)
         return cursor.fetchmany(row_count)
 
     def get_urls(self, ID, submitter, cursor, row_count=3):
@@ -187,7 +190,7 @@ class Problem2(Problem1):
         self.time_window = self.get_time_window(origin_date,
                                                 time_count, time_measure)
         self.ID = ID
-        self.qry = self.find_link_qry()
+        self.qry, self.inputs = self.find_link_qry()
         self.row_count = 3
 
     def set_row_count(self, new):
@@ -202,21 +205,22 @@ class Problem2(Problem1):
         '''Get 3 owner, repo, number, link-type tuples lining to the same ID
         within the time frame'''
 
-        cursor.execute(self.qry)
+        cursor.execute(self.qry, self.inputs)
         self.link_data = cursor.fetchmany(self.row_count)
         return self.link_data
 
     def find_link_qry(self):
         '''Make MySQL query to repos who also linked to ID within a timeframe'''
 
-        raw_qry = "SELECT DISTINCT owner, repo, number, count_ii, count_ic, "\
+        qry = "SELECT DISTINCT owner, repo, number, count_ii, count_ic, "\
             "count_ci, count_cc, date "\
             "FROM filtered_links_dated "\
-            "WHERE linked_repo_id = {0} "\
+            "WHERE linked_repo_id = %s "\
             "AND owner != linked_owner "\
-            "AND (date BETWEEN '{1}' AND '{2}') "\
+            "AND (date BETWEEN %s AND %s) "\
             "GROUP BY (owner)"
-        return raw_qry.format(self.ID, self.time_window, self.origin_date)
+        inputs = (self.ID, self.time_window, self.origin_date)
+        return qry, inputs
 
     def get_time_window(self, origin_date, amount, measure):
         '''Create date object amount measures before origin_date'''
@@ -266,7 +270,6 @@ class Problem2(Problem1):
             self.find_links_strict(cursor)
         except AttributeError:
             self.find_links(cursor)
-        # assert self.link_data != [], 'No tuples match your query!'
         if self.link_data == []:
             self.nothing_found = True
         output = []
@@ -331,15 +334,15 @@ class Problem2_5(Problem2):
         self.time_window = self.get_time_window(origin_date,
                                                 time_count, time_measure)
         self.ID = r_ID
-        self.strict_qry = self.find_link_qry_strict()
-        self.qry = self.find_link_qry()
+        self.strict_qry, self.strict_inputs = self.find_link_qry_strict()
+        self.qry, self.inputs = self.find_link_qry()
         self.row_count = 3
         self.nothing_found = False
 
     def find_link_qry_strict(self):
         '''Make MySQL query to repos who also linked to ID within a timeframe'''
 
-        raw_qry = "SELECT DISTINCT owner, repo, number, linked_number, "\
+        qry = "SELECT DISTINCT owner, repo, number, linked_number, "\
             "count_ii, count_ic, "\
             "count_ci, count_cc, date "\
             "FROM filtered_links_dated "\
@@ -348,18 +351,19 @@ class Problem2_5(Problem2):
             "AND owner != linked_owner "\
             "AND (date BETWEEN '{2}' AND '{3}') "\
             "GROUP BY (owner)"
-        return raw_qry.format(self.ID, self.artifact_ID,
-                              self.time_window, self.origin_date)
+
+        inputs = (self.ID, self.artifact_ID, self.time_window, self.origin_date)
+        return qry, inputs
 
     def find_links_strict(self, cursor):
         '''Get 3 owner, repo, number, link-type tuples lining to the same ID
         within the time frame IFF they also linked to the same artifact ID'''
 
-        cursor.execute(self.strict_qry)
+        cursor.execute(self.strict_qry, self.strict_inputs)
         self.link_data = cursor.fetchmany(self.row_count)
         if len(self.link_data) == 0:
             self.used_non_strict = True
-            cursor.execute(self.qry)
+            cursor.execute(self.qry, self.inputs)
             self.link_data = cursor.fetchmany(self.row_count)
         return self.link_data
 
